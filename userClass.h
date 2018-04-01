@@ -1,3 +1,11 @@
+/*
+ * changes made-
+ * Users.txt is now Users
+ * ios::ate removed.
+ * created class function getobj
+ * changes in putobj
+ */
+
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
@@ -33,11 +41,11 @@ class User
 	string userName, password;
 	int noQues, noAns, ques[MAX], ans[MAX];
 
-  public:
+    public:
     User()
     {
         userID = -1;
-		userName = "";
+		userName = "";  // not sure simple assignment works
 		password = "";
 		noQues = 0;
 		noAns = 0;
@@ -50,7 +58,7 @@ class User
 	User(string name, string psswrd)
 	{
 		userID = findCount();
-		userName = name;
+		userName = name;    // check if assignment works in case of strings
 		password = psswrd;
 		noQues = 0;
 		noAns = 0;
@@ -61,6 +69,8 @@ class User
         }
     }
 	void putObj(); //stores User object in file
+	void getObj();
+
 	string  getUserName()
 	{
 	    return userName;
@@ -76,13 +86,33 @@ class User
 void User::putObj()
 {
     ofstream file;
-    file.open("Users.txt",ios::app | ios::ate);
+    file.open("Users",ios::out); /* with ios::app set, there's no need to set ios::ate */
 
    // cout << "\nB4 writing pos: " << file.tellp();
+    file.seekp(0,ios::end);
     file.write((char *)&(*this), sizeof(*this));
+    cout<<"\nIn putobj()\n";
+    this->display();
     //cout << "\nAfter writing pos: " << file.tellp();
     file.close();
     incCount();
+}
+
+void User:: getObj()
+{
+    User obj;
+
+    ifstream file;
+    file.open("Users",ios::ate | ios::in);
+
+    file.seekg(0,ios::end);
+    file.seekg(((-1)*sizeof(User)),ios_base::cur);
+    file.read((char*)&obj, sizeof(obj));
+    file.close();
+
+    cout<<"\nIn getobj class fn\n";
+    obj.display();
+    (*this) = obj;
 }
 
 void User::display()

@@ -1,4 +1,10 @@
+/*
+ * Changes made:
+ * added exit() in switch
+ */
+
 #include <iostream>
+#include <stdlib.h>
 #include <windows.h>
 #include "login.h"
 using namespace std;
@@ -8,11 +14,26 @@ int main()
     //remove("Users.txt");
     int choice;
 
-    while(1)
+    ifstream fin;
+    fin.open("Users",ios::in);
+    User obj;
+    while(fin)
     {
-        cout << "\tMENU!\n";
+        if(fin)
+        {
+            fin.read((char*)&obj, sizeof(obj));
+            obj.display();
+        }
+    }
+
+
+/*
+   while(1)
+   {
+        cout << "\n\n\tMENU!\n";
         cout << "PRESS 1: To register.\n";
         cout << "PRESS 2: To login.\n";
+        cout << "PRESS 3: To exit.\n";
         cout << "Your choice: ";
         cin >> choice;
 
@@ -40,7 +61,9 @@ int main()
                 }
                 break;
             }
+        case 3: exit(0);
         }
     }
+    */
     return 0;
 }

@@ -32,8 +32,8 @@ void registerUsr()
           }
         }
     }
-	User obj(name, pass);
-	obj.putObj();
+	User *obj  = new User(name, pass);
+	obj->putObj();
 	//User tmp = getObj();
 	cout << "\nYou are successfully registered!\n";
 	//tmp.display();

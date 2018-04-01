@@ -1,3 +1,8 @@
+/*
+ * Changes made:
+ * commented function getobj()
+ */
+
 #include <iostream>
 #include "register.h"
 using namespace std;
@@ -34,8 +39,13 @@ User getObj(string name, string psswrd)
 
 void getObj()
 {
+    User obj;
+    obj.getObj();
+    cout<<"\nIn getobj outside fn\n";
+    obj.display();
+    /*
     ifstream file;
-    file.open("Users.txt", ios::in);
+    file.open("Users", ios::in);
     User obj;
 
     cout <<  "\ntellg at " << file.tellg();
@@ -50,6 +60,7 @@ void getObj()
         cout <<  "\ntellg at " << file.tellg();
     }
     file.close();
+    */
 }
 
 User login()
